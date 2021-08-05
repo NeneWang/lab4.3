@@ -27,15 +27,40 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="aventurerModalTitle">Create Aventurer</h5>
+
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
                         <!-- Aventurer form here -->
+
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Name</span>
+                            </div>
+                            <input type="text" id="avin-name" class="form-control">
+                        </div>
+
+                        <small class="form-text text-muted">Please separate tags by comma.</small>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Tags</span>
+                            </div>
+                            <input type="text" id="avin-tags" class="form-control">
+                        </div>
+
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Quest Completed</span>
+                            </div>
+                            <input type="text" id="avin-questsCompleted" class="form-control">
+                        </div>
+
+
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-primary">Create</button>
+                        <button type="button" id="btn-create-aventurer" class="btn btn-primary">Create</button>
                     </div>
                 </div>
             </div>
@@ -65,8 +90,7 @@
         <div class="row pt-3">
             <div class="col-md-9 ">
                 <h5>Quests</h5>
-                <button class="btn btn-sm  btn-primary" id="btn-create-quest" data-toggle="modal"
-                    data-target="#questModal">Create
+                <button class="btn btn-sm  btn-primary" data-toggle="modal" data-target="#questModal">Create
                     Quest</button>
                 <ul class="list-group pt-1" id="ul-quests">
                     <li class="list-group-item ">Sample Quest <span class="float-right"><button value="1"
@@ -86,8 +110,7 @@
 
             <div class="col-md-3 ">
                 <h5>Aventurers</h5>
-                <button class="btn btn-sm  btn-primary" id="btn-create-aventurer" data-toggle="modal"
-                    data-target="#aventurerModal">Add
+                <button class="btn btn-sm  btn-primary" data-toggle="modal" data-target="#aventurerModal">Add
                     Aventurer</button>
                 <ul class="list-group pt-1" id="ul-aventurers">
                     <li class="list-group-item">Mark</li>
@@ -123,6 +146,15 @@
         loadAventurers();
 
     });
+
+    function setupButtons() {
+        // Create new quest and create new aventurer
+        $("#btn-create-aventurer").click(() => {
+
+            // Create Aventurers
+
+        })
+    }
 
     function loadQuests() {
         $.ajax({
@@ -165,6 +197,22 @@
             }
         });
     }
+
+    function createNewQuest(questName, description, tags) {
+        // For the demo I will not have different questboards for now...
+        const questBoard = 1;
+        $.post('https://simplenodeserver2.herokuapp.com/new-quest', {
+            questName: questName,
+            description: description,
+            tags: tags,
+            questBoard: questBoard
+        });
+
+    }
+
+    
+
+
 </script>
 
 </html>
