@@ -126,10 +126,6 @@
                         <!-- Quest form stats here -->
                         Aventurer who completed the quest
                         <select class="form-control" id="dpdown-quest-completed">
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                            <option>4</option>
                         </select>
                         <!-- Quest form Ends Here -->
                     </div>
@@ -276,6 +272,10 @@
                     $("#ul-aventurers").append(
                         `<li class="list-group-item">${user.username} <span class="small"><br> <span>${stringToBadgesHTML(user.tags)}</span> <br> <span>QuestN: ${user.questsCompleted} </span></span> </li>`
                     );
+
+                    $("#dpdown-quest-completed").append(
+                        `<option>${user.username}</option>`
+                    )
                 });
             }
         });
@@ -345,6 +345,10 @@
             updateData()
         });
     }
+
+
+
+
 </script>
 
 </html>
