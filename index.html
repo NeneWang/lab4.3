@@ -39,7 +39,7 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text">Name</span>
                             </div>
-                            <input type="text" id="avin-name" class="form-control">
+                            <input type="text" id="avin-username" class="form-control">
                         </div>
 
                         <small class="form-text text-muted">Please separate tags by comma.</small>
@@ -54,13 +54,13 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text">Quest Completed</span>
                             </div>
-                            <input type="text" id="avin-questsCompleted" class="form-control">
+                            <input type="number" id="avin-questsCompleted" class="form-control">
                         </div>
 
 
                     </div>
                     <div class="modal-footer">
-                        <button type="button" id="btn-create-aventurer" class="btn btn-primary">Create</button>
+                        <button type="submit" id="btn-create-aventurer" class="btn btn-primary">Create</button>
                     </div>
                 </div>
             </div>
@@ -144,15 +144,19 @@
         // Starts logging from the api
         loadQuests();
         loadAventurers();
+        setupButtons();
 
     });
 
     function setupButtons() {
         // Create new quest and create new aventurer
         $("#btn-create-aventurer").click(() => {
-
+            const username = $('#avin-username').val();
+            const tags = $('#avin-tags').val();
+            const questsCompleted = $('#avin-questsCompleted').val();
             // Create Aventurers
-
+            console.log(`Adding aventurer with data: ${username}, ${tags}, ${questsCompleted} `)
+            createAventurer(username, tags, questsCompleted);
         })
     }
 
@@ -201,18 +205,30 @@
     function createNewQuest(questName, description, tags) {
         // For the demo I will not have different questboards for now...
         const questBoard = 1;
-        $.post('https://simplenodeserver2.herokuapp.com/new-quest', {
-            questName: questName,
-            description: description,
-            tags: tags,
-            questBoard: questBoard
+        $.ajax('https://simplenodeserver2.herokuapp.com/quests', {
+            method: "POST",
+            contentType: "application/json",
+            data: JSON.stringify({
+                questName,
+                description,
+                tags,
+                questBoard
+            })
         });
 
     }
 
-    
-
-
+    function createAventurer(username, tags, questCompleted) {
+        $.ajax('https://simplenodeserver2.herokuapp.com/users', {
+            method: "POST",
+            contentType: "application/json",
+            data: JSON.stringify({
+                username,
+                tags,
+                questCompleted,
+            })
+        });
+    }
 </script>
 
 </html>
