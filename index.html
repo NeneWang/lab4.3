@@ -47,14 +47,15 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text">Tags</span>
                             </div>
-                            <input type="text" id="avin-tags" class="form-control">
+                            <input type="text" id="avin-tags" value="Rank-Porcelain, Class-Swordman,"
+                                class="form-control">
                         </div>
 
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
                                 <span class="input-group-text">Quest Completed</span>
                             </div>
-                            <input type="number" id="avin-questsCompleted" class="form-control">
+                            <input type="number" id="avin-questsCompleted" value="0" class="form-control">
                         </div>
 
 
@@ -78,10 +79,34 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <!-- Aventurer form here -->
+                        <!-- Quest form stats here -->
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Title</span>
+                            </div>
+                            <input type="text" id="qsin-questName" class="form-control">
+                        </div>
+
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Description</span>
+                            </div>
+                            <input type="text" id="qsin-description" class="form-control">
+                        </div>
+
+                        <small class="form-text text-muted">Please separate tags by comma.</small>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Tags</span>
+                            </div>
+                            <input type="text" id="qsin-tags" value="Difficulty-Easy, Location-LiyueHarbor,"
+                                class="form-control">
+                        </div>
+
+                        <!-- Quest form Ends Here -->
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-primary">Create</button>
+                        <button type="button" id="btn-create-quest" class="btn btn-primary">Create</button>
                     </div>
                 </div>
             </div>
@@ -157,6 +182,16 @@
             // Create Aventurers
             console.log(`Adding aventurer with data: ${username}, ${tags}, ${questsCompleted} `)
             createAventurer(username, tags, questsCompleted);
+        })
+
+
+        $("#btn-create-quest").click(() => {
+            const questName = $('#qsin-questName').val();
+            const description = $('#qsin-description').val();
+            const tags = $('#qsin-tags').val();
+            // Create Aventurers
+            console.log(`Adding aventurer with data: ${questName}, ${description}, ${tags} `)
+            createNewQuest(questName, description, tags);
         })
     }
 
