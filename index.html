@@ -65,7 +65,8 @@
         <div class="row pt-3">
             <div class="col-md-9 ">
                 <h5>Quests</h5>
-                <button class="btn btn-sm  btn-primary" data-toggle="modal" data-target="#questModal">Create Quest</button>
+                <button class="btn btn-sm  btn-primary" id="btn-create-quest" data-toggle="modal" data-target="#questModal">Create
+                    Quest</button>
                 <ul class="list-group pt-1">
                     <li class="list-group-item ">Sample Quest <span class="float-right"><button value="1"
                                 class="btn btn-danger ">Delete</button> <button
@@ -84,7 +85,7 @@
 
             <div class="col-md-3 ">
                 <h5>Aventurers</h5>
-                <button class="btn btn-sm  btn-primary" data-toggle="modal" data-target="#aventurerModal">Add
+                <button class="btn btn-sm  btn-primary" id="btn-create-aventurer" data-toggle="modal" data-target="#aventurerModal">Add
                     Aventurer</button>
                 <ul class="list-group pt-1">
                     <li class="list-group-item">Mark</li>
@@ -97,8 +98,7 @@
 </body>
 
 
-<script>
-</script>
+
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
     integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
@@ -111,5 +111,15 @@
 </script>
 
 <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
+
+
+<script>
+    $(document).ready(() => {
+
+
+        console.log("Document Ready");
+
+    });
+</script>
 
 </html>
