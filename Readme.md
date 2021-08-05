@@ -209,4 +209,4 @@ Follow the instructions in: [Lab 4.3(b)](https://github.com/NeneWang/CISC3140-La
 ### Client Side
 
 - Bootstrap 4.3 [https://getbootstrap.com](https://getbootstrap.com/)
-- Bootstrap Toggle: [https://gitbrent.github.io/bootstrap4-toggle/](https://gitbrent.github.io/bootstrap4-toggle/)
+- Jquery: https://api.jquery.com/
