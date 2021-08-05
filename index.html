@@ -133,13 +133,10 @@
                 result.forEach(quest => {
                     console.log(quest);
                     $("#ul-quests").append(`<li class="list-group-item ">${quest.questName}<span class="float-right"><button value="${quest._id}"
-                                class="btn btn-danger ">Delete</button> <button
+                                class="btn btn-danger " onclick="deleteQuest('${quest._id}')" >Delete</button> <button
                                 class="btn btn-success ">Complete</button> </span></li>`);
                 });
             }
-
-
-
 
         });
     }
@@ -156,12 +153,17 @@
                     $("#ul-aventurers").append(`<li class="list-group-item">${user.username}</li>`);
                 });
             }
-
-
-
-
         });
+    }
 
+    function deleteQuest(questId) {
+        $.ajax({
+            url: `https://simplenodeserver2.herokuapp.com/quests/${questId}`,
+            type: 'DELETE',
+            success: function (result) {
+                console.log(`Deleted ${questId}`)
+            }
+        });
     }
 </script>
 
