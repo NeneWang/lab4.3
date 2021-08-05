@@ -5,7 +5,7 @@
 ### Links
 
 1. **[Live Demo](https://questboardfrontend.herokuapp.com/) (Client Side: Quest Board (Admin))**
-2. **[Web Documentation (Notion)]()**
+2. **[Web Documentation (Notion)](https://wngnelson.notion.site/Lab-4-3-Documentation-8957ad35470648e792ec244aacf87c66)
 3. **[GIthub Repo](https://github.com/NeneWang/lab4.3) (Lab 4.3 Client Side)**
 4. **[Github Repo for Lab 4.2 Server Side](https://github.com/NeneWang/lab4.2)**
 5. **[Github Repo for Lab 4.3(b) Deploying automation](https://github.com/NeneWang/CISC3140-Labs/tree/main/4.3)**
