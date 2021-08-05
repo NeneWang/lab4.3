@@ -225,6 +225,7 @@
             const aventurer = $("#dpdown-quest-completed").val();
 
             console.log(`user: ${aventurer}, id: ${lastQuestId}`);
+            completeQuestPost(aventurer, lastQuestId);
         })
     }
 
@@ -239,7 +240,7 @@
                     $("#ul-quests").append(
                         `<li class="list-group-item ">${quest.questName}<span class="float-right"><button value="${quest._id}"
                                 class="btn btn-danger " onclick="deleteQuest('${quest._id}')" >Delete</button> <button
-                                class="btn btn-success" data-toggle="modal" data-target="#questCompleteModal" onclick="completeClick('${quest.questName}', '${quest._id}')" >Complete</button> </span> <br> <span class="small">${stringToBadgesHTML(quest.tags)}</span> <br><span class="small">${quest.description}</span></li>`
+                                class="btn btn-success" data-toggle="modal" data-target="#questCompleteModal" onclick="completeClick('${ quest.completed ? quest.questName: ""}', '${quest._id}')" >Complete</button> </span> <br> <span class="small">${stringToBadgesHTML(quest.tags)}</span> <br><span class="small">${quest.description}</span></li>`
                     );
                 });
             }
@@ -333,7 +334,7 @@
 
     }
 
-    function completeQuestPost(o_id, username) {
+    function completeQuestPost(username, o_id) {
         $.ajax('https://simplenodeserver2.herokuapp.com/complete-quest', {
             method: "POST",
             contentType: "application/json",
