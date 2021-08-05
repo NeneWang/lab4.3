@@ -231,7 +231,7 @@
 
     function loadQuests() {
         $.ajax({
-            url: "https://simplenodeserver2.herokuapp.com/quests",
+            url: "https://questboardbackend.herokuapp.com/quests",
             success: function (result) {
                 console.log(result);
                 quests = result;
@@ -264,7 +264,7 @@
     function loadAventurers() {
 
         $.ajax({
-            url: "https://simplenodeserver2.herokuapp.com/users",
+            url: "https://questboardbackend.herokuapp.com/users",
             success: function (users) {
                 // console.log(users);
                 aventurers = users;
@@ -284,7 +284,7 @@
 
     function deleteQuest(questId) {
         $.ajax({
-            url: `https://simplenodeserver2.herokuapp.com/quests/${questId}`,
+            url: `https://questboardbackend.herokuapp.com/quests/${questId}`,
             type: 'DELETE',
             success: function (result) {
                 console.log(`Deleted ${questId}`)
@@ -297,7 +297,7 @@
     function createNewQuest(questName, description, tags) {
         // For the demo I will not have different questboards for now...
         const questBoard = 1;
-        $.ajax('https://simplenodeserver2.herokuapp.com/quests', {
+        $.ajax('https://questboardbackend.herokuapp.com/quests', {
             method: "POST",
             contentType: "application/json",
             data: JSON.stringify({
@@ -313,7 +313,7 @@
     }
 
     function createAventurer(username, tags, questCompleted) {
-        $.ajax('https://simplenodeserver2.herokuapp.com/users', {
+        $.ajax('https://questboardbackend.herokuapp.com/users', {
             method: "POST",
             contentType: "application/json",
             data: JSON.stringify({
@@ -335,7 +335,7 @@
     }
 
     function completeQuestPost(username, o_id) {
-        $.ajax('https://simplenodeserver2.herokuapp.com/complete-quest', {
+        $.ajax('https://questboardbackend.herokuapp.com/complete-quest', {
             method: "POST",
             contentType: "application/json",
             data: JSON.stringify({
