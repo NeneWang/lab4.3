@@ -112,6 +112,30 @@
             </div>
         </div>
 
+
+        <div class="modal fade" id="questCompleteModal" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="questCompleteTitle">Quest Complete: </h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <!-- Quest form stats here -->
+                        Aventurer who completed the quest
+                        <select class="form-control" id="dpdown-quest-completed">
+                        </select>
+                        <!-- Quest form Ends Here -->
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" id="btn-complete-quest" class="btn btn-primary">Create</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div class="row pt-3">
             <div class="col-md-9 ">
                 <h5>Quests</h5>
@@ -119,8 +143,10 @@
                     Quest</button>
                 <ul class="list-group pt-1" id="ul-quests">
                     <!-- <li class="list-group-item ">Sample Quest <span class="float-right"><button value="1"
-                                class="btn btn-danger ">Delete</button> <button
-                                class="btn btn-success ">Complete</button> </span> <br> <span class="small">Tags</span> <br><span class="small">Description</span> </li> -->
+                                class="btn btn-danger ">Delete</button> <button class="btn btn-success"
+                                data-toggle="modal" data-target="#questCompleteModal"
+                                onclick="completeClick('test', 'id')">Complete</button>
+                        </span> <br> <span class="small">Tags</span> <br><span class="small">Description</span> </li> -->
                 </ul>
 
 
@@ -156,8 +182,11 @@
 
 
 <script>
+    var quests = Array();
+    var aventurers = Array();
+    var lastQuestName;
+    var lastQuestId;
     $(document).ready(() => {
-
 
         // console.log("Document Ready");
         // Starts logging from the api
@@ -180,7 +209,7 @@
             // Create Aventurers
             // console.log(`Adding aventurer with data: ${username}, ${tags}, ${questsCompleted} `)
             createAventurer(username, tags, questsCompleted);
-        })
+        });
 
 
         $("#btn-create-quest").click(() => {
@@ -190,6 +219,13 @@
             // Create Aventurers
             console.log(`Adding aventurer with data: ${questName}, ${description}, ${tags} `)
             createNewQuest(questName, description, tags);
+        });
+
+        $("#btn-complete-quest").click(() => {
+            const aventurer = $("#dpdown-quest-completed").val();
+
+            console.log(`user: ${aventurer}, id: ${lastQuestId}`);
+            completeQuestPost(aventurer, lastQuestId);
         })
     }
 
@@ -197,12 +233,15 @@
         $.ajax({
             url: "https://simplenodeserver2.herokuapp.com/quests",
             success: function (result) {
-                // console.log(result);
-
+                console.log(result);
+                quests = result;
                 result.forEach(quest => {
                     console.log(quest);
-                    $("#ul-quests").append(`<li class="list-group-item ">${quest.questName}<span class="float-right"><button value="${quest._id}"
-                                class="btn btn-danger " onclick="deleteQuest('${quest._id}')" >Delete</button> </span> <br> <span class="small">${stringToBadgesHTML(quest.tags)}</span> <br><span class="small">${quest.description}</span></li>`);
+                    $("#ul-quests").append(
+                        `<li class="list-group-item ">${quest.questName}<span class="float-right"><button value="${quest._id}"
+                                class="btn btn-danger " onclick="deleteQuest('${quest._id}')" >Delete</button> <button  ${quest.completed==false ? '': 'disabled'}
+                                class="btn btn-success" data-toggle="modal" data-target="#questCompleteModal"  onclick="completeClick('${ quest.questName}', '${quest._id}')" > ${quest.completed==false ? 'complete': 'completed'}</button> </span> <br> <span class="small">${stringToBadgesHTML(quest.tags)}</span> <br><span class="small">${quest.description}</span></li>`
+                    );
                 });
             }
 
@@ -212,11 +251,11 @@
 
     }
 
-    function stringToBadgesHTML(stringIn){
+    function stringToBadgesHTML(stringIn) {
         var tags = (stringIn.split(","));
         var htmlStringToReturn = "";
         tags.forEach(tag => {
-            htmlStringToReturn += tag!=""?`<span class="badge badge-secondary">${tag}</span> `:"";
+            htmlStringToReturn += tag != "" ? `<span class="badge badge-secondary">${tag}</span> ` : "";
         })
         return htmlStringToReturn
 
@@ -227,11 +266,17 @@
         $.ajax({
             url: "https://simplenodeserver2.herokuapp.com/users",
             success: function (users) {
-                console.log(users);
-
+                // console.log(users);
+                aventurers = users;
                 users.forEach(user => {
                     console.log(user);
-                    $("#ul-aventurers").append(`<li class="list-group-item">${user.username} <span class="small"><br> <span>${stringToBadgesHTML(user.tags)}</span> <br> <span>QuestN: ${user.questsCompleted} </span></span> </li>`);
+                    $("#ul-aventurers").append(
+                        `<li class="list-group-item">${user.username} <span class="small"><br> <span>${stringToBadgesHTML(user.tags)}</span> <br> <span>QuestN: ${user.questsCompleted} </span></span> </li>`
+                    );
+
+                    $("#dpdown-quest-completed").append(
+                        `<option>${user.username}</option>`
+                    )
                 });
             }
         });
@@ -244,7 +289,9 @@
             success: function (result) {
                 console.log(`Deleted ${questId}`)
             }
-        }).done(()=>{updateData()});
+        }).done(() => {
+            updateData()
+        });
     }
 
     function createNewQuest(questName, description, tags) {
@@ -259,7 +306,9 @@
                 tags,
                 questBoard
             })
-        }).done(()=>{updateData()});
+        }).done(() => {
+            updateData()
+        });
 
     }
 
@@ -272,8 +321,35 @@
                 tags,
                 questCompleted,
             })
-        }).done(()=>{updateData()});
+        }).done(() => {
+            updateData()
+        });
     }
+
+    function completeClick(questName, questID) {
+        lastQuestName = questName;
+        lastQuestId = questID;
+
+        $("#questCompleteTitle").text(`Completed Completed: ${lastQuestName} `);
+
+    }
+
+    function completeQuestPost(username, o_id) {
+        $.ajax('https://simplenodeserver2.herokuapp.com/complete-quest', {
+            method: "POST",
+            contentType: "application/json",
+            data: JSON.stringify({
+                o_id,
+                username
+            })
+        }).done(() => {
+            updateData()
+        });
+    }
+
+
+
+
 </script>
 
 </html>
