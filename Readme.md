@@ -210,5 +210,3 @@ Follow the instructions in: [Lab 4.3(b)](https://github.com/NeneWang/CISC3140-La
 
 - Bootstrap 4.3 [https://getbootstrap.com](https://getbootstrap.com/)
 - Bootstrap Toggle: [https://gitbrent.github.io/bootstrap4-toggle/](https://gitbrent.github.io/bootstrap4-toggle/)
-- Timing: [https://www.w3schools.com/js/js_timing.asp](https://www.w3schools.com/js/js_timing.asp)
-- How to read cookies: [https://stackoverflow.com/questions/5142337/read-a-javascript-cookie-by-name](https://stackoverflow.com/questions/5142337/read-a-javascript-cookie-by-name)
