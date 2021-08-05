@@ -297,6 +297,7 @@
     function createNewQuest(questName, description, tags) {
         // For the demo I will not have different questboards for now...
         const questBoard = 1;
+        const completed = false;
         $.ajax('https://simplenodeserver2.herokuapp.com/quests', {
             method: "POST",
             contentType: "application/json",
@@ -304,7 +305,8 @@
                 questName,
                 description,
                 tags,
-                questBoard
+                questBoard,
+                completed
             })
         }).done(() => {
             updateData()
@@ -346,10 +348,6 @@
             updateData()
         });
     }
-
-
-
-
 </script>
 
 </html>
