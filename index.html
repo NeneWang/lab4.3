@@ -118,15 +118,9 @@
                 <button class="btn btn-sm  btn-primary" data-toggle="modal" data-target="#questModal">Create
                     Quest</button>
                 <ul class="list-group pt-1" id="ul-quests">
-                    <li class="list-group-item ">Sample Quest <span class="float-right"><button value="1"
+                    <!-- <li class="list-group-item ">Sample Quest <span class="float-right"><button value="1"
                                 class="btn btn-danger ">Delete</button> <button
-                                class="btn btn-success ">Complete</button> </span></li>
-                    <li class="list-group-item ">Sample Quest <span class="float-right"><button value="1"
-                                class="btn btn-danger ">Delete</button> <button
-                                class="btn btn-success ">Complete</button> </span></li>
-                    <li class="list-group-item ">Sample Quest <span class="float-right"><button value="1"
-                                class="btn btn-danger ">Delete</button> <button
-                                class="btn btn-success ">Complete</button> </span></li>
+                                class="btn btn-success ">Complete</button> </span> <br> <span class="small">Tags</span> <br><span class="small">Description</span> </li> -->
                 </ul>
 
 
@@ -138,7 +132,7 @@
                 <button class="btn btn-sm  btn-primary" data-toggle="modal" data-target="#aventurerModal">Add
                     Aventurer</button>
                 <ul class="list-group pt-1" id="ul-aventurers">
-                    <li class="list-group-item">Mark</li>
+                    <!-- <li class="list-group-item">Mark <span class="small"><br> <span>Tags</span> <br> <span>Quest Completed: </span></span> </li> -->
                 </ul>
 
             </div>
@@ -165,13 +159,17 @@
     $(document).ready(() => {
 
 
-        console.log("Document Ready");
+        // console.log("Document Ready");
         // Starts logging from the api
         loadQuests();
         loadAventurers();
         setupButtons();
 
     });
+
+    function updateData() {
+        location.reload();
+    }
 
     function setupButtons() {
         // Create new quest and create new aventurer
@@ -180,7 +178,7 @@
             const tags = $('#avin-tags').val();
             const questsCompleted = $('#avin-questsCompleted').val();
             // Create Aventurers
-            console.log(`Adding aventurer with data: ${username}, ${tags}, ${questsCompleted} `)
+            // console.log(`Adding aventurer with data: ${username}, ${tags}, ${questsCompleted} `)
             createAventurer(username, tags, questsCompleted);
         })
 
@@ -199,17 +197,30 @@
         $.ajax({
             url: "https://simplenodeserver2.herokuapp.com/quests",
             success: function (result) {
-                console.log(result);
+                // console.log(result);
 
                 result.forEach(quest => {
                     console.log(quest);
                     $("#ul-quests").append(`<li class="list-group-item ">${quest.questName}<span class="float-right"><button value="${quest._id}"
                                 class="btn btn-danger " onclick="deleteQuest('${quest._id}')" >Delete</button> <button
-                                class="btn btn-success ">Complete</button> </span></li>`);
+                                class="btn btn-success ">Complete</button> </span> <br> <span class="small">${stringToBadgesHTML(quest.tags)}</span> <br><span class="small">${quest.description}</span></li>`);
                 });
             }
 
         });
+        stringToBadgesHTML("Difficulty-Easy, Location-LiyueHarbor,");
+
+
+    }
+
+    function stringToBadgesHTML(stringIn){
+        var tags = (stringIn.split(","));
+        var htmlStringToReturn = "";
+        tags.forEach(tag => {
+            htmlStringToReturn += tag!=""?`<span class="badge badge-secondary">${tag}</span> `:"";
+        })
+        return htmlStringToReturn
+
     }
 
     function loadAventurers() {
@@ -221,7 +232,7 @@
 
                 users.forEach(user => {
                     console.log(user);
-                    $("#ul-aventurers").append(`<li class="list-group-item">${user.username}</li>`);
+                    $("#ul-aventurers").append(`<li class="list-group-item">${user.username} <span class="small"><br> <span>${stringToBadgesHTML(user.tags)}</span> <br> <span>QuestN: ${user.questsCompleted} </span></span> </li>`);
                 });
             }
         });
@@ -234,7 +245,7 @@
             success: function (result) {
                 console.log(`Deleted ${questId}`)
             }
-        });
+        }).done(()=>{updateData()});
     }
 
     function createNewQuest(questName, description, tags) {
@@ -249,7 +260,7 @@
                 tags,
                 questBoard
             })
-        });
+        }).done(()=>{updateData()});
 
     }
 
@@ -262,7 +273,7 @@
                 tags,
                 questCompleted,
             })
-        });
+        }).done(()=>{updateData()});
     }
 </script>
 
