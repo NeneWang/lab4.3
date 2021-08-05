@@ -202,8 +202,7 @@
                 result.forEach(quest => {
                     console.log(quest);
                     $("#ul-quests").append(`<li class="list-group-item ">${quest.questName}<span class="float-right"><button value="${quest._id}"
-                                class="btn btn-danger " onclick="deleteQuest('${quest._id}')" >Delete</button> <button
-                                class="btn btn-success ">Complete</button> </span> <br> <span class="small">${stringToBadgesHTML(quest.tags)}</span> <br><span class="small">${quest.description}</span></li>`);
+                                class="btn btn-danger " onclick="deleteQuest('${quest._id}')" >Delete</button> </span> <br> <span class="small">${stringToBadgesHTML(quest.tags)}</span> <br><span class="small">${quest.description}</span></li>`);
                 });
             }
 
