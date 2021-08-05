@@ -34,6 +34,15 @@ Please follow the instructions on the Readme file.
 
 ![Lab%204%203-%20Documentation%208664d221e4a24ef38b502e8329b10acd/Untitled%205.png](Lab%204%203-%20Documentation%208664d221e4a24ef38b502e8329b10acd/Untitled%205.png)
 
+### Steps I took to design the layout
+
+1. I got inspired by looking at rpg's quest boards.
+2. Separated into checklist the different "features" that a guild clerk would need to have access to.
+3. Drawed on paper basic sketch of the layout
+4. Created layout with dummy data and no API logic
+5. Added API Logic
+
+
 # API
 
 For more information about the API used, you can refer to the readme on the [repository](https://github.com/NeneWang/lab4.2) or this [notion documentation](https://www.notion.so/Lab-4-2-API-bc4c1d0b25c84a24aefecae8636e30eb)
