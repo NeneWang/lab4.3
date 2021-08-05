@@ -124,14 +124,13 @@
                     </div>
                     <div class="modal-body">
                         <!-- Quest form stats here -->
-                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown">
-                            Aventurer Completing the quest
-                          </button>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" href="#">Action</a>
-                            <a class="dropdown-item" href="#">Another action</a>
-                            <a class="dropdown-item" href="#">Something else here</a>
-                        </div>
+                        Aventurer who completed the quest
+                        <select class="form-control" id="dpdown-quest-completed">
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                        </select>
                         <!-- Quest form Ends Here -->
                     </div>
                     <div class="modal-footer">
@@ -149,7 +148,8 @@
                 <ul class="list-group pt-1" id="ul-quests">
                     <li class="list-group-item ">Sample Quest <span class="float-right"><button value="1"
                                 class="btn btn-danger ">Delete</button> <button class="btn btn-success"
-                                data-toggle="modal" data-target="#questCompleteModal" onclick="completeClick('test', 'id')">Complete</button>
+                                data-toggle="modal" data-target="#questCompleteModal"
+                                onclick="completeClick('test', 'id')">Complete</button>
                         </span> <br> <span class="small">Tags</span> <br><span class="small">Description</span> </li>
                 </ul>
 
@@ -189,7 +189,7 @@
     var quests = Array();
     var aventurers = Array();
     var lastQuestName;
-    var lastQuestID;
+    var lastQuestId;
     $(document).ready(() => {
 
         // console.log("Document Ready");
@@ -224,6 +224,12 @@
             console.log(`Adding aventurer with data: ${questName}, ${description}, ${tags} `)
             createNewQuest(questName, description, tags);
         });
+
+        $("#btn-complete-quest").click(() => {
+            const aventurer = $("#dpdown-quest-completed").val();
+
+            console.log(`user: ${aventurer}, id: ${lastQuestId}`);
+        })
     }
 
     function loadQuests() {
@@ -238,7 +244,7 @@
                         `<li class="list-group-item ">${quest.questName}<span class="float-right"><button value="${quest._id}"
                                 class="btn btn-danger " onclick="deleteQuest('${quest._id}')" >Delete</button> <button
                                 class="btn btn-success" data-toggle="modal" data-target="#questCompleteModal" onclick="completeClick('${quest.questName}', '${quest._id}')" >Complete</button> </span> <br> <span class="small">${stringToBadgesHTML(quest.tags)}</span> <br><span class="small">${quest.description}</span></li>`
-                        );
+                    );
                 });
             }
 
@@ -269,7 +275,7 @@
                     console.log(user);
                     $("#ul-aventurers").append(
                         `<li class="list-group-item">${user.username} <span class="small"><br> <span>${stringToBadgesHTML(user.tags)}</span> <br> <span>QuestN: ${user.questsCompleted} </span></span> </li>`
-                        );
+                    );
                 });
             }
         });
@@ -320,25 +326,25 @@
     }
 
     function completeClick(questName, questID) {
-        var lastQuestName = questName;
-        var lastQuestID = questID;
+        lastQuestName = questName;
+        lastQuestId = questID;
 
         $("#questCompleteTitle").text(`Completed Completed: ${lastQuestName} `);
 
     }
 
-    function completeQuestPost(o_id, username){
+    function completeQuestPost(o_id, username) {
         $.ajax('https://simplenodeserver2.herokuapp.com/complete-quest', {
             method: "POST",
             contentType: "application/json",
             data: JSON.stringify({
-                o_id, username
+                o_id,
+                username
             })
         }).done(() => {
             updateData()
         });
     }
-
 </script>
 
 </html>
